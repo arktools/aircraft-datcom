@@ -1,0 +1,17 @@
+.DS_Store
+Makefile
+Makefile.in
+.deps
+*.sce
+*.log
+*.o
+*.a
+*.csv
+*.lo
+*.la
+*.patch
+*.diff
+*.png
+*.catalog
+tags
+build*

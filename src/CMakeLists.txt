@@ -1,4 +1,4 @@
-add_executable(aircraft_datcom
+add_executable(aircraft-datcom
     agenr.f
     airfol.f
     aldlpr.f
@@ -353,7 +353,13 @@ add_executable(aircraft_datcom
     yup.f
     zerang.f
 	)
+install(TARGETS aircraft-datcom 
+    RUNTIME DESTINATION "bin" COMPONENT Runtime
+    )
 
-add_executable(aircraft_datcom_plot
+add_executable(aircraft-datcom-plot
     dplot.f
+    )
+install(TARGETS aircraft-datcom-plot
+    RUNTIME DESTINATION "bin" COMPONENT Runtime
     )

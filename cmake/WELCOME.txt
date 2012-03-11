@@ -1,0 +1,7 @@
+Welcome to installation. This program will guide you through the installation of this software.
+
+Installing this software requires administrator access. 
+
+There are two installable components:
+Runtime: the trimming software and data files. 
+Dev: static library and headers for development use. 

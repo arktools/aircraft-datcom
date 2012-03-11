@@ -2,25 +2,21 @@ project (aircraft-datcom Fortran)
 
 # settings
 cmake_minimum_required (VERSION 2.6)
-set(APPLICATION_NAME ${PROJECT_NAME})
-set(APPLICATION_VERSION_MAJOR "0")
-set(APPLICATION_VERSION_MINOR "0")
-set(APPLICATION_VERSION_PATCH "0")
-set(APPLICATION_VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}.${APPLICATION_VERSION_PATCH}")
+set(PROJECT_NAME ${PROJECT_NAME})
+set(PROJECT_VERSION_MAJOR "0")
+set(PROJECT_VERSION_MINOR "0")
+set(PROJECT_VERSION_PATCH "0")
+set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 set(LIBRARY_SOVERSION "0.0.0")
+set(LIBRARY_VERSION ${PROJECT_VERSION})
 set(PROJECT_CONTACT_EMAIL james.goppert@gmail.com)
-set(PROJECT_CONTACT_VENDOR USAF)
+set(PROJECT_CONTACT_VENDOR arkTools)
 
 # modules
 set(CMAKE_MODULE_PATH
 	${CMAKE_SOURCE_DIR}/cmake
 	${CMAKE_SOURCE_DIR}/cmake/arkcmake
 )
-
-# use common setup
-include(CommonSetup)
-set(LIBRARY_VERSION ${APPLICATION_VERSION})
-include(CPackPackage)
 
 # settings
 option(WITH_BUILD_STATIC "Prefer static linking." ON)
@@ -46,3 +42,6 @@ endif()
 
 # build settings
 add_subdirectory(src)
+
+# cpack
+include(CPack)

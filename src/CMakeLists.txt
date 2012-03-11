@@ -57,7 +57,6 @@ add_executable(aircraft_datcom
     dmpary.f
     dnpawb.f
     dnpwbt.f
-    dplot.f
     dpresr.f
     dragfp.f
     dump2.f
@@ -354,3 +353,7 @@ add_executable(aircraft_datcom
     yup.f
     zerang.f
 	)
+
+add_executable(aircraft_datcom_plot
+    dplot.f
+    )

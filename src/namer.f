@@ -59,7 +59,7 @@ C
       DATA COMMA / 4H,    /
       DATA PARL  / 4H(    /
       DATA PARR  / 4H)    /
-      DATA CARET / 4H   /
+      DATA CARET / 4H     /
       DATA INUMS / 4H0   ,4H1   ,4H2   ,4H3   ,4H4   ,4H5   ,4H6   ,
      1             4H7   ,4H8   ,4H9   ,4H+   ,4H-   ,4H.   /
       DATA IO    / 6 /

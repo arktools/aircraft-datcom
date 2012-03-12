@@ -78,8 +78,12 @@ C
           IF(PINF(I) .NE. UNUSED) PINF(I) = PINF(I)*XP
           IF(TINF(I) .NE. UNUSED) TINF(I) = TINF(I)*XT
           IF(VINF(I) .NE. UNUSED) VINF(I) = VINF(I)/XL
-          IF(I .LE. 10 .AND. GRDH(I) .NE. UNUSED) GRDH(I) = GRDH(I)/XL
+C AJT     IF(I .LE. 10 .AND. GRDH(I) .NE. UNUSED) GRDH(I) = GRDH(I)/XL
  1030   CONTINUE
+C AJT  GRDH TAKEN OUT OF DO 1030 LOOP TO STOP ARRAY BOUND FAIL
+         DO 1031 I=1,10
+          GRDH(I) = GRDH(I)/XL
+ 1031   CONTINUE
         IF(WT .NE. UNUSED) WT = WT*XW
 C
         IF(ROUGFC .NE. UNUSED) ROUGFC = ROUGFC/XF
@@ -109,9 +113,13 @@ C
           IF(R(I)  .NE. UNUSED) R(I)  = R(I)*SCALE/XL
           IF(ZU(I) .NE. UNUSED) ZU(I) = ZU(I)*SCALE/XL
           IF(ZL(I) .NE. UNUSED) ZL(I) = ZL(I)*SCALE/XL
-          IF((I .LE. 3) .AND. (BL(I) .NE. UNUSED))
-     1                          BL(I) = BL(I)*SCALE/XL
+C AJT     IF((I .LE. 3) .AND. (BL(I) .NE. UNUSED))
+C AJT     1                          BL(I) = BL(I)*SCALE/XL
  1050   CONTINUE
+C AJT  BL TAKEN OUT OF DO 1030 LOOP TO STOP ARRAY BOUND FAIL
+        DO 1051 I=1,3
+            BL(I) = BL(I)*SCALE/XL
+ 1051   CONTINUE 
 C
         DO 1060 I=1,6
           IF(WGIN(I) .NE. UNUSED) WGIN(I) = WGIN(I)*SCALE/XL

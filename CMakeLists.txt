@@ -94,8 +94,6 @@ endif()
 # config files
 #configure_file(config.h.in config.h)
 
-# build settings
-
 # subdirectory
 add_subdirectory(src)
 

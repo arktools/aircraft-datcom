@@ -41,13 +41,13 @@ C
       DO 1020 I=1,NALPHA
          DO 1020 J=1,NDELTA
             II=(I-1)*10+J
-            IF(HYP(II).EQ.0.0)GO TO 1010
+C            IF(HYP(II).EQ.0.0)GO TO 1010
             TEMP(II)=HYP(II+400)/HYP(II)
             GO TO 1020
 C
 C     ----PUT IN BLANKS FOR INDEFINITES.
 C
- 1010       TEMP(II)=BLANK
+C 1010       TEMP(II)=BLANK
  1020 CONTINUE
       WRITE(6,1060)
       WRITE(6,1070)
@@ -58,10 +58,10 @@ C
       DO 1050 I=1,NALPHA
          DO 1040 J=1,NDELTA
             II=(I-1)*10+J
-            IF(HYP(II+200).EQ.0.0)GO TO 1030
+C            IF(HYP(II+200).EQ.0.0)GO TO 1030
             TEMP(II)=-HYP(II+600)/HYP(II+200)
             GO TO 1040
- 1030       TEMP(II)=BLANK
+C 1030       TEMP(II)=BLANK
  1040    CONTINUE
  1050 CONTINUE
       WRITE(6,1140)

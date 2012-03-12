@@ -85,6 +85,7 @@ C
       DIMENSION FOR(34), IFOR(8)
       DIMENSION FOT(46), IFOT(11)
       DIMENSION IFOH(11), FOH(46)
+	CHARACTER*4 FOR,FOT,FOH
 C
       DATA FOR /
      1  4H(0P ,   4H5X  ,   4H,1X ,   4H,F5.,   4H1,1X,   4H,2X ,

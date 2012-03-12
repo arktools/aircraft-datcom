@@ -1,10 +1,1 @@
-   ****************************************************
-   *    USAF STABILITY AND CONTROL  DIGITAL DATCOM    *
-   *    PROGRAM REV. JAN 96   DIRECT INQUIRIES TO:    *
-   *    AIR FORCE RESEARCH LABORATORY                 *
-   *    AIR VEHICLES DIRECTORATE, AFRL/VACA           *
-   *    ATTN: WILLIAM B. BLAKE                        *
-   *    2130 EIGHTH STREET, SUITE 1, BUILDING 45      *
-   *    WRIGHT PATTERSON AFB, OHIO  45433-7532        *
-   *    PHONE (937) 255-3900,   FAX (937) 255-3438    *
-   ****************************************************
+This project is a modified version of the publically released USAF aircraft datcom. The goal of the project is to updated the code and make it more usuable by the end user.

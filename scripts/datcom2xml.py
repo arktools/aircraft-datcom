@@ -38,7 +38,7 @@ if __name__ == "__main__":
                     print "Found footer:", line
                     break
 
-    breakpoints = []
+    breakpoints = dict() 
     for head_num, line in headers:
         if len(headers) == 0:
             break
@@ -55,18 +55,42 @@ if __name__ == "__main__":
         num_cols = len(columns)
 
         header_breakpoints = [0]
+        base = 0
         for n, space, col in zip(xrange(num_cols), space_sizes, columns):
             print n, space, col, 
             print "(%s)" % len(col)
             if n == 0:
                 width = space + len(col) + int(ceil(space_sizes[n+1]/2))
+                point = base + width
+                base += width
             elif n == num_cols-1:
                 width = int(floor(space/2)) + len(col)
+                point = base + width
+                base += width
             else:
                 width = int(floor(space/2)) + len(col) + int(ceil(space_sizes[n+1]/2))
-            header_breakpoints.append(width)
+                point = base + width
+                base += width
+            header_breakpoints.append(point)
 
-        breakpoints.append((head_num, header_breakpoints))
+        # defining breakpoints as midpoint of line between midpoints of columns
+        #for n, space, col in zip(xrange(num_cols), space_sizes, columns):
+            #if n == 0:
+                ## pieces: 
+                ## (floor(len(col)/2) + ceil(len(columns[n+1])/2))/2
+
+
+        #breakpoints.append((head_num, header_breakpoints))
+        #print "head num type", type(head_num)
+        breakpoints[head_num] = header_breakpoints
+        #breakpoints.insert(head_num, header_breakpoints)
 
     print breakpoints
+
+    for head_num, line in rows:
+        bp = breakpoints[head_num]
+        num_cols = len(bp) - 1
+        for i in xrange(num_cols):
+            print line[bp[i]:bp[i+1]].strip()
+
 # vim:sw=4:ts=4:expandtab

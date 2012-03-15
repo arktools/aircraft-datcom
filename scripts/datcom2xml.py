@@ -29,7 +29,7 @@ if __name__ == "__main__":
                     header += 1
                     headers.append((header,line))
                     print "Found header:", line
-                if title and header and not re.match(header_re, line):
+                if title and header and not re.match(header_re, line) and not re.match(footer_re, line):
                     if line.strip() == "0":
                         continue
                     rows.append((header,line))
@@ -60,16 +60,22 @@ if __name__ == "__main__":
             print n, space, col, 
             print "(%s)" % len(col)
             if n == 0:
-                width = space + len(col) + int(ceil(space_sizes[n+1]/2))
+                #print "sp %s col %s sp %s" % ( space, len(col), floor(space_sizes[n+1]*0.5) )
+                width = space + len(col) + int(floor(space_sizes[n+1]*0.5))
                 point = base + width
+                print base, point
                 base += width
             elif n == num_cols-1:
-                width = int(floor(space/2)) + len(col)
-                point = base + width
-                base += width
+                #width = int(ceil(space/2)) + len(col)
+                #point = base + width
+                #base += width
+                # last item can grabbed with empty slice index i.e. [100:]
+                continue 
             else:
-                width = int(floor(space/2)) + len(col) + int(ceil(space_sizes[n+1]/2))
+                #print "sp %s col %s sp %s" % ( ceil(space*0.5), len(col), floor(space_sizes[n+1]*0.5) )
+                width = int(ceil(space*0.5)) + len(col) + int(floor(space_sizes[n+1]*0.5))
                 point = base + width
+                #print base, point
                 base += width
             header_breakpoints.append(point)
 
@@ -89,8 +95,13 @@ if __name__ == "__main__":
 
     for head_num, line in rows:
         bp = breakpoints[head_num]
-        num_cols = len(bp) - 1
+        num_cols = len(bp)
         for i in xrange(num_cols):
-            print line[bp[i]:bp[i+1]].strip()
+            if i == num_cols-1:
+                cell = line[bp[i]:]
+            else:
+                cell = line[bp[i]:bp[i+1]]
+            print cell.strip()
+        print "\n"
 
 # vim:sw=4:ts=4:expandtab

@@ -18,19 +18,20 @@ class Datcom2xml:
         
         #### Files ####
         if not os.access(infile, os.R_OK):
-            sys.stderr.write("Could not access datcom file '%s'") % infile
+            sys.stderr.write("Could not access datcom file '%s'\n" % infile)
             raise SystemExit
-        ## not sure how to check writability other than try: open(outfile, w)
         self._datcom = infile
         self._xml = outfile
         
         #### Containers ####
         self._headers = []
         self._rows = []
+        self._data = dict()
         
+        #### Call methods ####
         self._readDatcom()
         self._parseDatcom()
-        self._writeDatcom()
+        #self._writeDatcom()
         
     
     
@@ -67,7 +68,8 @@ class Datcom2xml:
     
     def _parseDatcom(self):
         ### Loop through headers to detect whitespace to slice data lines
-        breakpoints = dict() 
+        breakpoints = dict()
+        col_names = dict()
         for head_num, line in self._headers:
             if len(self._headers) == 0:
                 break
@@ -105,26 +107,56 @@ class Datcom2xml:
                 base = point
                 header_breakpoints.append(point)
 
-            # store header breakpoints keyed by head_num
+            # store header cols and breakpoints keyed by head_num
+            col_names[head_num] = columns
             breakpoints[head_num] = header_breakpoints
 
-        print breakpoints
+        #print breakpoints
 
+        ### Initialize data storage
+        for v in col_names.itervalues():
+            for n in v:
+                self._data[n] = []
         ### Slice data lines based on header whitespace
         for head_num, line in self._rows:
             bp = breakpoints[head_num]
+            cols = col_names[head_num]
             num_cols = len(bp)
-            for i in xrange(num_cols):
+            for k in xrange(num_cols):
+                # only store alpha once
+                if head_num > 1 and cols[k] == "ALPHA":
+                    continue
                 # last value
-                if i == num_cols-1:
-                    cell = line[bp[i]:]
+                if k == num_cols-1:
+                    cell = line[bp[k]:]
                 else:
-                    cell = line[bp[i]:bp[i+1]]
-                print cell.strip()
-            print "\n"
+                    cell = line[bp[k]:bp[k+1]]
+                self._data[cols[k]].append(cell.strip())
+                #print cell.strip()
+            #print "\n"
+        #print self._data
+        alpha_w = self._maxLen(self._data['ALPHA']) + 2
+        cla_w = self._maxLen(self._data['CLA']) + 2
+        for n in xrange(len(self._data['CLA'])):
+            pair = (self._data['ALPHA'][n], self._data['CLA'][n])
+            string = "%" + str(alpha_w) + "s %" + str(cla_w) + "s"
+            print string % pair
+        
+    
+    def _maxLen(self, _list):
+        maxLen = 0
+        for cell in _list:
+            if len(cell) > maxLen:
+                maxLen = len(cell)
+        return maxLen
 
     def _writeDatcom(self):
-        pass
+        try:
+            with open(outfile, "w") as fh:
+                pass
+        except IOError:
+            sys.stderr.write("Could not write XML file '%s'\n" % outfile)
+            raise SystemExit
 
 if __name__ == "__main__":
 

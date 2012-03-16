@@ -7,7 +7,7 @@ import sys
 import re
 from math import floor, ceil
 
-title_re = re.compile(r"0\s+-+DERIVATIVE \(PER DEGREE\)-+")
+title_str = "-DERIVATIVE (PER DEGREE)-"
 header_re = re.compile(r"0\s+ALPHA")
 footer_re = re.compile(r"1\s+")
 
@@ -23,21 +23,25 @@ if __name__ == "__main__":
             title = 0
             header = 0
             for line in fh:
-                if re.match(title_re, line):
-                    title += 1
-                    print "Found title:", line
-                elif title and re.match(header_re, line):
-                    header += 1
-                    headers.append((header,line))
-                    print "Found header:", line
-                elif title and header and re.match(footer_re, line):
-                    print "Found footer:", line
-                    break
-                elif title and header:
-                    if line.strip() == "0":
+                if title:
+                    if re.match(header_re, line):
+                        header += 1
+                        headers.append((header,line))
+                        print "Found header:", line
                         continue
-                    rows.append((header,line))
-                    #print "Found row: %s (%s)" % (line, header) 
+                    elif header and re.match(footer_re, line):
+                        print "Found footer:", line
+                        break
+                    elif header:
+                        if line.strip() == "0":
+                            continue
+                        rows.append((header,line))
+                        #print "Found row: %s (%s)" % (line, header) 
+                else:
+                    if title_str in line:
+                        title += 1
+                        print "Found title:", line
+
 
     ### Loop through headers to detect whitespace to slice data lines
     breakpoints = dict() 

@@ -26,18 +26,18 @@ if __name__ == "__main__":
                 if re.match(title_re, line):
                     title += 1
                     print "Found title:", line
-                if title and re.match(header_re, line):
+                elif title and re.match(header_re, line):
                     header += 1
                     headers.append((header,line))
                     print "Found header:", line
-                if title and header and not re.match(header_re, line) and not re.match(footer_re, line):
+                elif title and header and re.match(footer_re, line):
+                    print "Found footer:", line
+                    break
+                elif title and header:
                     if line.strip() == "0":
                         continue
                     rows.append((header,line))
                     #print "Found row: %s (%s)" % (line, header) 
-                if title and header and re.match(footer_re, line):
-                    print "Found footer:", line
-                    break
 
     ### Loop through headers to detect whitespace to slice data lines
     breakpoints = dict() 

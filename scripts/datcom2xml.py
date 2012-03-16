@@ -15,6 +15,7 @@ if __name__ == "__main__":
     headers = []
     rows = []
 
+    ### Collect correct table, header, and data lines
     if len(sys.argv) == 2:
         filename = sys.argv[1]
         with open(filename) as fh:
@@ -38,65 +39,56 @@ if __name__ == "__main__":
                     print "Found footer:", line
                     break
 
+    ### Loop through headers to detect whitespace to slice data lines
     breakpoints = dict() 
     for head_num, line in headers:
         if len(headers) == 0:
             break
+        # replace leading 0 with space
         line = re.sub(r"^0", " ", line)
+        # find all pairs of (whitespace, non-whitespace)
         i = re.finditer(r"(\s*)([^\s]+)", line)
-        space_sizes = []
+        space_len = []
         columns = []
+        col_len = []
         for m in i:
             space = m.group(1)
-            space_sizes.append(len(space))
+            space_len.append(len(space))
             col = m.group(2)
             columns.append(col)
+            col_len.append(len(col))
 
-        num_cols = len(columns)
-
+        # first value is 0 for [0:x] slice
         header_breakpoints = [0]
         base = 0
-        for n, space, col in zip(xrange(num_cols), space_sizes, columns):
-            print n, space, col, 
-            print "(%s)" % len(col)
-            if n == 0:
-                #print "sp %s col %s sp %s" % ( space, len(col), floor(space_sizes[n+1]*0.5) )
-                width = space + len(col) + int(floor(space_sizes[n+1]*0.5))
-                point = base + width
-                print base, point
-                base += width
-            elif n == num_cols-1:
-                #width = int(ceil(space/2)) + len(col)
-                #point = base + width
-                #base += width
-                # last item can grabbed with empty slice index i.e. [100:]
-                continue 
+
+        for n in xrange(1, len(columns)):
+            # prev col width + smaller half of trailing whitespace
+            right_half = col_len[n-1] + int(floor(0.5*space_len[n]))
+            if n == 1:
+                # all of 0th whitespace
+                left_half = space_len[n-1]
             else:
-                #print "sp %s col %s sp %s" % ( ceil(space*0.5), len(col), floor(space_sizes[n+1]*0.5) )
-                width = int(ceil(space*0.5)) + len(col) + int(floor(space_sizes[n+1]*0.5))
-                point = base + width
-                #print base, point
-                base += width
+                # larger half of leading whitespace
+                left_half = int(ceil(0.5*space_len[n-1]))
+            # half leading whitespace, col width, half trailing whitespace
+            width = left_half + right_half
+            point = base + width
+            # set base to current breakpoint
+            base = point
             header_breakpoints.append(point)
 
-        # defining breakpoints as midpoint of line between midpoints of columns
-        #for n, space, col in zip(xrange(num_cols), space_sizes, columns):
-            #if n == 0:
-                ## pieces: 
-                ## (floor(len(col)/2) + ceil(len(columns[n+1])/2))/2
-
-
-        #breakpoints.append((head_num, header_breakpoints))
-        #print "head num type", type(head_num)
+        # store header breakpoints keyed by head_num
         breakpoints[head_num] = header_breakpoints
-        #breakpoints.insert(head_num, header_breakpoints)
 
     print breakpoints
 
+    ### Slice data lines based on header whitespace
     for head_num, line in rows:
         bp = breakpoints[head_num]
         num_cols = len(bp)
         for i in xrange(num_cols):
+            # last value
             if i == num_cols-1:
                 cell = line[bp[i]:]
             else:

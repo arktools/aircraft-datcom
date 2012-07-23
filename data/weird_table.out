@@ -1,0 +1,35 @@
+
+1                               AUTOMATED STABILITY AND CONTROL METHODS PER APRIL 1976 VERSION OF DATCOM
+                                         CHARACTERISTICS AT ANGLE OF ATTACK AND IN SIDESLIP
+                                               WING-BODY-HORIZONTAL TAIL CONFIGURATION
+                                         CONFIGURATION BUILDUP, EXAMPLE PROBLEM 3, CASE 1
+ 
+ -----------------------  FLIGHT CONDITIONS  ------------------------           --------------  REFERENCE DIMENSIONS  ------------
+  MACH    ALTITUDE   VELOCITY    PRESSURE    TEMPERATURE     REYNOLDS             REF.      REFERENCE LENGTH   MOMENT REF. CENTER
+ NUMBER                                                       NUMBER              AREA       LONG.     LAT.     HORIZ      VERT
+             FT       FT/SEC     LB/FT**2       DEG R         1/FT               FT**2        FT        FT        FT        FT
+0 0.600                                                    4.2600E+06             2.250      0.822     3.000     2.600     0.000
+0                                                               -------------------DERIVATIVE (PER DEGREE)-------------------
+0 ALPHA     CD       CL       CM       CN       CA       XCP        CLA          CMA          CYB          CNB          CLB
+0
+   -2.0    0.018   -0.134    0.0228  -0.134    0.013   -0.170    6.696E-02   -1.114E-02   -1.609E-03   -1.844E-03    5.928E-04
+    0.0    0.016    0.000    0.0000   0.000    0.016   ******    6.695E-02   -1.168E-02                             -2.910E-11
+    2.0    0.018    0.134   -0.0239   0.134    0.013   -0.177    6.751E-02   -1.337E-02                             -5.928E-04
+    4.0    0.026    0.270   -0.0535   0.271    0.007   -0.197    6.801E-02   -1.565E-02                             -1.189E-03
+    8.0    0.073    0.542   -0.1228   0.546   -0.004   -0.225    6.676E-02   -1.813E-02                             -2.372E-03
+   12.0    0.160    0.804   -0.1985   0.820   -0.011   -0.242    5.806E-02   -1.973E-02                             -3.497E-03
+   16.0    0.255    1.006   -0.2806   1.037   -0.032   -0.270    4.049E-02   -2.182E-02                             -4.305E-03
+   20.0             1.128   -0.3731                              1.762E-02   -1.977E-02                             -4.710E-03
+   24.0             1.147   -0.4388                             -8.122E-03   -1.307E-02                             -4.683E-03
+0                                    ALPHA     Q/QINF    EPSLON  D(EPSLON)/D(ALPHA)
+0
+                                     -2.0      0.944     -1.234        0.617
+                                      0.0      0.909      0.000        0.617
+                                      2.0      0.944      1.234        0.603
+                                      4.0      0.995      2.413        0.572
+                                      8.0      1.000      4.565        0.493
+                                     12.0      1.000      6.358        0.361
+                                     16.0      1.000      7.452        0.162
+                                     20.0      1.000      7.650       -0.065
+                                     24.0      1.000      6.929       -0.180
+1                               AUTOMATED STABILITY AND CONTROL METHODS PER APRIL 1976 VERSION OF DATCOM

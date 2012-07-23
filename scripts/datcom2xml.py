@@ -134,16 +134,18 @@ class Datcom2xml:
                 self._data[cols[k]].append(cell.strip())
                 #print cell.strip()
             #print "\n"
-        #print self._data
+        print self._data
         alpha_w = self._maxLen(self._data['ALPHA']) + 2
         cla_w = self._maxLen(self._data['CLA']) + 2
         for n in xrange(len(self._data['CLA'])):
             pair = (self._data['ALPHA'][n], self._data['CLA'][n])
+            # Build format string using computed max widths
             string = "%" + str(alpha_w) + "s %" + str(cla_w) + "s"
-            print string % pair
+            #print string % pair
         
     
     def _maxLen(self, _list):
+        """Find longest len() in list (for automatic string formatting)"""
         maxLen = 0
         for cell in _list:
             if len(cell) > maxLen:
@@ -151,12 +153,8 @@ class Datcom2xml:
         return maxLen
 
     def _writeDatcom(self):
-        try:
-            with open(outfile, "w") as fh:
-                pass
-        except IOError:
-            sys.stderr.write("Could not write XML file '%s'\n" % outfile)
-            raise SystemExit
+        with open(outfile, "w") as fh:
+            pass
 
 if __name__ == "__main__":
 

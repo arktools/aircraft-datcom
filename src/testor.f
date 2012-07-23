@@ -19,6 +19,8 @@ C
       ND = 0
       NE = 0
       NF = 0
+      I  = 0
+      IS = 0
 C
 C***  UNKNOWN NAMELIST NAME - WRITE CARD AND RETURN
 C

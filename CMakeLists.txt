@@ -15,6 +15,11 @@ set(LIBRARY_SOVERSION "0.0.0")
 option(WITH_BUILD_DEPS "Build dependencies." OFF)
 option(WITH_PREFER_STATIC "Build preferring static linking." ON)
 
+# force init zero compile flag
+set(CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -finit-local-zero")
+set(CMAKE_Fortran_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS_DEBUG} -finit-local-zero")
+set(CMAKE_Fortran_FLAGS_RELEASE "${CMAKE_Fortran_FLAGS_RELEASE} -finit-local-zero")
+
 # variables
 set(ROOT_THREAD TRUE CACHE INTERNAL "Is this the top level of the recursion?")
 
